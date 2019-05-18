@@ -2,19 +2,21 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
-  <property name="geometry">
-   <rect>
-    <x>0</x>
-    <y>0</y>
-    <width>910</width>
-    <height>531</height>
-   </rect>
-  </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>WifiBOT User Interface</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color:#2c2c2c;
+color:deepskyblue;
+Font-family:Agency FB;
+Font-size:15px;
+Font-weight:Bold;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QFrame" name="frame">
+   <property name="styleSheet">
+    <string notr="true">background-image:url(&quot;background_app.png&quot;);</string>
+   </property>
+   <widget class="QFrame" name="cam">
     <property name="geometry">
      <rect>
       <x>520</x>
@@ -22,6 +24,9 @@
       <width>371</width>
       <height>211</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -61,12 +66,12 @@
      <rect>
       <x>540</x>
       <y>10</y>
-      <width>59</width>
+      <width>51</width>
       <height>16</height>
      </rect>
     </property>
     <property name="text">
-     <string>Cam 1 </string>
+     <string>Camera 1 </string>
     </property>
    </widget>
    <widget class="QLabel" name="label_4">
@@ -85,7 +90,7 @@
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>740</x>
+      <x>750</x>
       <y>450</y>
       <width>59</width>
       <height>16</height>
@@ -95,13 +100,13 @@
      <string>Direction</string>
     </property>
    </widget>
-   <widget class="QSlider" name="verticalSlider">
+   <widget class="QSlider" name="speedSlide">
     <property name="geometry">
      <rect>
       <x>570</x>
-      <y>280</y>
+      <y>279</y>
       <width>22</width>
-      <height>160</height>
+      <height>161</height>
      </rect>
     </property>
     <property name="orientation">
@@ -111,9 +116,9 @@
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>530</x>
       <y>420</y>
-      <width>59</width>
+      <width>31</width>
       <height>16</height>
      </rect>
     </property>
@@ -124,9 +129,9 @@
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>520</x>
+      <x>530</x>
       <y>280</y>
-      <width>59</width>
+      <width>31</width>
       <height>16</height>
      </rect>
     </property>
@@ -134,20 +139,26 @@
      <string>High - </string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_8">
+   <widget class="QLabel" name="speedValue">
     <property name="geometry">
      <rect>
       <x>510</x>
       <y>350</y>
-      <width>59</width>
-      <height>16</height>
+      <width>41</width>
+      <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string>Value %</string>
     </property>
+    <property name="textFormat">
+     <enum>Qt::AutoText</enum>
+    </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="connectionButton">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -155,6 +166,12 @@
       <width>114</width>
       <height>32</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"> background: #3498db;
+ border-radius: 1000px;
+color:white;
+</string>
     </property>
     <property name="text">
      <string>Connection</string>
@@ -170,22 +187,12 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLCDNumber" name="lcdNumber">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>0</y>
-      <width>64</width>
-      <height>16</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_9">
     <property name="geometry">
      <rect>
       <x>10</x>
       <y>20</y>
-      <width>59</width>
+      <width>31</width>
       <height>16</height>
      </rect>
     </property>
@@ -215,6 +222,12 @@
       <height>71</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
@@ -227,6 +240,9 @@
       <width>21</width>
       <height>16</height>
      </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
@@ -241,6 +257,9 @@
       <height>20</height>
      </rect>
     </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
@@ -254,6 +273,9 @@
       <height>61</height>
      </rect>
     </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
@@ -264,19 +286,22 @@
       <x>590</x>
       <y>10</y>
       <width>21</width>
-      <height>16</height>
+      <height>20</height>
      </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-   <widget class="QLabel" name="label_10">
+   <widget class="QLabel" name="date">
     <property name="geometry">
      <rect>
-      <x>80</x>
+      <x>10</x>
       <y>0</y>
-      <width>91</width>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
@@ -332,6 +357,9 @@
       <height>101</height>
      </rect>
     </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
     <property name="orientation">
      <enum>Qt::Vertical</enum>
     </property>
@@ -341,32 +369,46 @@
      <rect>
       <x>220</x>
       <y>40</y>
-      <width>271</width>
+      <width>281</width>
       <height>20</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>
     </property>
    </widget>
-  </widget>
-  <widget class="QMenuBar" name="menuBar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>910</width>
-     <height>21</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
+   <widget class="QLabel" name="state">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>20</y>
+      <width>91</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="time">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>0</y>
+      <width>111</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>|       00:00</string>
+    </property>
+   </widget>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
