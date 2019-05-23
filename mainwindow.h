@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QPushButton>
+#include <QSlider>
 
 namespace Ui {
 class MainWindow;
@@ -15,6 +17,10 @@ public:
     explicit MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void init();
+
+private slots:
+    void startConnection();
+    void handleSlider();
 
 private:
     Ui::MainWindow *ui;

@@ -2,11 +2,20 @@
 <ui version="4.0">
  <class>MainWindow</class>
  <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>920</width>
+    <height>505</height>
+   </rect>
+  </property>
   <property name="windowTitle">
    <string>WifiBOT User Interface</string>
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:#2c2c2c;
+background-image:url(&quot;:background_app.png&quot;);
 color:deepskyblue;
 Font-family:Agency FB;
 Font-size:15px;
@@ -14,7 +23,7 @@ Font-weight:Bold;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
-    <string notr="true">background-image:url(&quot;background_app.png&quot;);</string>
+    <string notr="true">background-image:url(&quot;:background_app.png&quot;);</string>
    </property>
    <widget class="QFrame" name="cam">
     <property name="geometry">
@@ -66,7 +75,7 @@ Font-weight:Bold;</string>
      <rect>
       <x>540</x>
       <y>10</y>
-      <width>51</width>
+      <width>61</width>
       <height>16</height>
      </rect>
     </property>
@@ -79,7 +88,7 @@ Font-weight:Bold;</string>
      <rect>
       <x>530</x>
       <y>450</y>
-      <width>59</width>
+      <width>71</width>
       <height>16</height>
      </rect>
     </property>
@@ -90,17 +99,17 @@ Font-weight:Bold;</string>
    <widget class="QLabel" name="label_5">
     <property name="geometry">
      <rect>
-      <x>750</x>
+      <x>728</x>
       <y>450</y>
-      <width>59</width>
-      <height>16</height>
+      <width>81</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="text">
      <string>Direction</string>
     </property>
    </widget>
-   <widget class="QSlider" name="speedSlide">
+   <widget class="QSlider" name="speedSlider">
     <property name="geometry">
      <rect>
       <x>570</x>
@@ -139,25 +148,6 @@ Font-weight:Bold;</string>
      <string>High - </string>
     </property>
    </widget>
-   <widget class="QLabel" name="speedValue">
-    <property name="geometry">
-     <rect>
-      <x>510</x>
-      <y>350</y>
-      <width>41</width>
-      <height>20</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string>Value %</string>
-    </property>
-    <property name="textFormat">
-     <enum>Qt::AutoText</enum>
-    </property>
-   </widget>
    <widget class="QPushButton" name="connectionButton">
     <property name="geometry">
      <rect>
@@ -175,16 +165,6 @@ color:white;
     </property>
     <property name="text">
      <string>Connection</string>
-    </property>
-   </widget>
-   <widget class="QDial" name="dial">
-    <property name="geometry">
-     <rect>
-      <x>680</x>
-      <y>280</y>
-      <width>181</width>
-      <height>151</height>
-     </rect>
     </property>
    </widget>
    <widget class="QLabel" name="label_9">
@@ -283,7 +263,7 @@ color:white;
    <widget class="Line" name="line_5">
     <property name="geometry">
      <rect>
-      <x>590</x>
+      <x>610</x>
       <y>10</y>
       <width>21</width>
       <height>20</height>
@@ -301,7 +281,7 @@ color:white;
      <rect>
       <x>10</x>
       <y>0</y>
-      <width>71</width>
+      <width>121</width>
       <height>16</height>
      </rect>
     </property>
@@ -325,8 +305,8 @@ color:white;
    <widget class="QLabel" name="label_12">
     <property name="geometry">
      <rect>
-      <x>260</x>
-      <y>390</y>
+      <x>250</x>
+      <y>310</y>
       <width>101</width>
       <height>16</height>
      </rect>
@@ -338,8 +318,8 @@ color:white;
    <widget class="QLabel" name="label_13">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>390</y>
+      <x>20</x>
+      <y>310</y>
       <width>101</width>
       <height>16</height>
      </rect>
@@ -399,7 +379,7 @@ color:white;
    <widget class="QLabel" name="time">
     <property name="geometry">
      <rect>
-      <x>90</x>
+      <x>130</x>
       <y>0</y>
       <width>111</width>
       <height>16</height>
@@ -407,6 +387,136 @@ color:white;
     </property>
     <property name="text">
      <string>|       00:00</string>
+    </property>
+   </widget>
+   <widget class="QTextEdit" name="console">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>366</y>
+      <width>341</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="html">
+     <string>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
+&lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
+p, li { white-space: pre-wrap; }
+&lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'Agency FB'; font-size:15px; font-weight:600; font-style:normal;&quot;&gt;
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:6pt; color:#aaaaff;&quot;&gt;##### WELCOME TO WifiBot UI #####&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="Line" name="line_8">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>350</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="Line" name="line_9">
+    <property name="geometry">
+     <rect>
+      <x>20</x>
+      <y>350</y>
+      <width>21</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Plain</enum>
+    </property>
+    <property name="orientation">
+     <enum>Qt::Horizontal</enum>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_8">
+    <property name="geometry">
+     <rect>
+      <x>50</x>
+      <y>350</y>
+      <width>61</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Console</string>
+    </property>
+   </widget>
+   <widget class="QLCDNumber" name="speedValue">
+    <property name="enabled">
+     <bool>false</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>350</y>
+      <width>64</width>
+      <height>23</height>
+     </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>300</y>
+      <width>31</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>▲</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_2">
+    <property name="geometry">
+     <rect>
+      <x>800</x>
+      <y>350</y>
+      <width>31</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>►</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_3">
+    <property name="geometry">
+     <rect>
+      <x>700</x>
+      <y>350</y>
+      <width>31</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>◄</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_4">
+    <property name="geometry">
+     <rect>
+      <x>750</x>
+      <y>400</y>
+      <width>31</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>▼</string>
     </property>
    </widget>
   </widget>

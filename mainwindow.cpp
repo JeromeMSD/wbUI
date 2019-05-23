@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+#include "MYROBOT.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -28,5 +29,27 @@ void MainWindow::init(){
 
     ui->date->setText(buffer);
 
+    // --- Set interactive component ---
+    // Slider
+    ui->speedSlider->setMinimum(0);
+    ui->speedSlider->setMaximum(100);
 
+    // Connect Button Connection to appropriate slot
+    connect(ui->connectionButton,SIGNAL(clicked()),SLOT(startConnection()));
+    connect(ui->speedSlider,SIGNAL(valueChanged(int)),SLOT(handleSlider()));
+
+
+}
+
+void MainWindow::startConnection(){
+    ui->console->append("Tentative de connection...");
+    ui->connectionButton->setText("Disconnection");
+
+    // --- MYROBOT CALL ---
+    ui->cam->setStyleSheet("background-image:url(background_app.png);");
+}
+
+void MainWindow::handleSlider(){
+    ui->console->append("coucou");
+    ui->speedValue->display(ui->speedSlider->value());
 }
