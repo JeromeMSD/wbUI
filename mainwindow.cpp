@@ -10,6 +10,8 @@ MainWindow::MainWindow(QWidget *parent) :
     init();
 }
 
+
+
 MainWindow::~MainWindow()
 {
     delete ui;
@@ -38,7 +40,6 @@ void MainWindow::init(){
     connect(ui->connectionButton,SIGNAL(clicked()),SLOT(startConnection()));
     connect(ui->speedSlider,SIGNAL(valueChanged(int)),SLOT(handleSlider()));
 
-
 }
 
 void MainWindow::startConnection(){
@@ -46,10 +47,19 @@ void MainWindow::startConnection(){
     ui->connectionButton->setText("Disconnection");
 
     // --- MYROBOT CALL ---
-    ui->cam->setStyleSheet("background-image:url(background_app.png);");
+
+
+    ui->console->ensureCursorVisible();
+
 }
 
 void MainWindow::handleSlider(){
-    ui->console->append("coucou");
     ui->speedValue->display(ui->speedSlider->value());
+    ui->progressBar->setValue(ui->speedSlider->value());
 }
+
+
+
+
+
+
