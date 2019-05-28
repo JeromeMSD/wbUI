@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         MYROBOT.cpp \
         main.cpp \
-        mainwindow.cpp
+        mainwindow.cpp \
+        robotcontroller.cpp
 
 HEADERS += \
         MYROBOT.h \
-        mainwindow.h
+        mainwindow.h \
+        robotcontroller.h
 
 FORMS += \
         mainwindow.ui
@@ -42,6 +44,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 DISTFILES += \
-    background_app.png
+    background_app.jpg
 
 RESOURCES +=

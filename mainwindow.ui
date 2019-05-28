@@ -15,7 +15,7 @@
   </property>
   <property name="styleSheet">
    <string notr="true">background-color:#2c2c2c;
-background-image:url(:background_app.png);
+background-image:url(./background_app.jpg);
 color:deepskyblue;
 Font-family:Agency FB;
 Font-size:15px;
@@ -23,7 +23,7 @@ Font-weight:Bold;</string>
   </property>
   <widget class="QWidget" name="centralWidget">
    <property name="styleSheet">
-    <string notr="true">background-image:url(&quot;:background_app.png&quot;);</string>
+    <string notr="true"/>
    </property>
    <widget class="QFrame" name="cam">
     <property name="geometry">
@@ -35,7 +35,9 @@ Font-weight:Bold;</string>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">background-color: black;
+background-image: url(&quot;./background_app.jpg&quot;);
+</string>
     </property>
     <property name="frameShape">
      <enum>QFrame::StyledPanel</enum>
@@ -47,8 +49,8 @@ Font-weight:Bold;</string>
    <widget class="QLabel" name="label">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>70</y>
+      <x>10</x>
+      <y>40</y>
       <width>59</width>
       <height>16</height>
      </rect>
@@ -188,6 +190,21 @@ color:white;
       <width>301</width>
       <height>31</height>
      </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar{
+color:#eee;
+}
+QProgressBar:horizontal {
+border: 1px solid #eee;
+padding: 1px;
+text-align :center;
+}
+QProgressBar::chunk:horizontal {
+padding: 1px;
+background: qlineargradient(x1: 0, y1: 0.5, x2: 1, y2: 0.5, stop: 0 deepskyblue, stop: 1 #2c2c2c);
+}
+</string>
     </property>
     <property name="value">
      <number>24</number>
@@ -397,13 +414,13 @@ color:white;
      <rect>
       <x>10</x>
       <y>366</y>
-      <width>391</width>
+      <width>421</width>
       <height>71</height>
      </rect>
     </property>
     <property name="maximumSize">
      <size>
-      <width>391</width>
+      <width>450</width>
       <height>71</height>
      </size>
     </property>
@@ -411,6 +428,7 @@ color:white;
      <string notr="true">font-family:console;
 font-weight:bold;
 color:#ccc;
+border:1px solid #eee;
 font-size:7pt;</string>
     </property>
     <property name="frameShadow">
@@ -433,7 +451,7 @@ font-size:7pt;</string>
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
 &lt;/style&gt;&lt;/head&gt;&lt;body style=&quot; font-family:'console'; font-size:7pt; font-weight:600; font-style:normal;&quot;&gt;
-&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#cccccc;&quot;&gt;##### WELCOME TO WifiBot UI #####&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:8pt; color:#eeeeee;&quot;&gt;##### WELCOME TO WifiBot UI #####&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
     </property>
    </widget>
    <widget class="Line" name="line_8">
@@ -487,14 +505,14 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="geometry">
      <rect>
-      <x>490</x>
+      <x>503</x>
       <y>350</y>
-      <width>64</width>
+      <width>51</width>
       <height>23</height>
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="front">
     <property name="geometry">
      <rect>
       <x>750</x>
@@ -503,11 +521,20 @@ p, li { white-space: pre-wrap; }
       <height>28</height>
      </rect>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
     <property name="text">
      <string>▲</string>
     </property>
+    <property name="shortcut">
+     <string>Up</string>
+    </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="right">
     <property name="geometry">
      <rect>
       <x>800</x>
@@ -522,8 +549,11 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>►</string>
     </property>
+    <property name="shortcut">
+     <string>Right</string>
+    </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="left">
     <property name="geometry">
      <rect>
       <x>700</x>
@@ -535,8 +565,11 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>◄</string>
     </property>
+    <property name="shortcut">
+     <string>Left</string>
+    </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="back">
     <property name="geometry">
      <rect>
       <x>750</x>
@@ -547,6 +580,74 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>▼</string>
+    </property>
+    <property name="shortcut">
+     <string>Down</string>
+    </property>
+   </widget>
+   <widget class="QProgressBar" name="batteryBar">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>60</y>
+      <width>181</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QProgressBar{
+color:#eee;
+}
+QProgressBar:horizontal {
+border:#2c2c2c;
+padding-right: 30px;
+text-align : right;
+}
+QProgressBar::chunk:horizontal {
+background: qlineargradient(x1: -0.5, y1: 0.5, x2: 1, y2: 0.5, stop: 1 deepskyblue, stop: 0 #2c2c2c);
+}
+</string>
+    </property>
+    <property name="value">
+     <number>24</number>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="frontRight">
+    <property name="geometry">
+     <rect>
+      <x>790</x>
+      <y>310</y>
+      <width>31</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>▲</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="frontLeft">
+    <property name="geometry">
+     <rect>
+      <x>710</x>
+      <y>310</y>
+      <width>31</width>
+      <height>28</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="styleSheet">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string>▲</string>
     </property>
    </widget>
   </widget>
