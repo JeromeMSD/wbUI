@@ -28,17 +28,19 @@ private slots:
     void setBatteryBar(int value);
     void go(int way);
 
-    void on_front_clicked();
+    void on_front_pressed();
+    void on_frontRight_pressed();
+    void on_frontLeft_pressed();
+    void on_left_pressed();
+    void on_right_pressed();
+    void on_back_pressed();
 
-    void on_frontRight_clicked();
-
-    void on_frontLeft_clicked();
-
-    void on_left_clicked();
-
-    void on_right_clicked();
-
-    void on_back_clicked();
+    void on_front_released();
+    void on_right_released();
+    void on_frontLeft_released();
+    void on_frontRight_released();
+    void on_left_released();
+    void on_back_released();
 
 private:
     Ui::MainWindow *ui;

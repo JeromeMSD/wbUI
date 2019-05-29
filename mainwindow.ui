@@ -531,7 +531,7 @@ p, li { white-space: pre-wrap; }
      <string>▲</string>
     </property>
     <property name="shortcut">
-     <string>Up</string>
+     <string>Ctrl+S, Ctrl+S</string>
     </property>
    </widget>
    <widget class="QPushButton" name="right">
@@ -549,9 +549,6 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>►</string>
     </property>
-    <property name="shortcut">
-     <string>Right</string>
-    </property>
    </widget>
    <widget class="QPushButton" name="left">
     <property name="geometry">
@@ -565,9 +562,6 @@ p, li { white-space: pre-wrap; }
     <property name="text">
      <string>◄</string>
     </property>
-    <property name="shortcut">
-     <string>Left</string>
-    </property>
    </widget>
    <widget class="QPushButton" name="back">
     <property name="geometry">
@@ -580,9 +574,6 @@ p, li { white-space: pre-wrap; }
     </property>
     <property name="text">
      <string>▼</string>
-    </property>
-    <property name="shortcut">
-     <string>Down</string>
     </property>
    </widget>
    <widget class="QProgressBar" name="batteryBar">

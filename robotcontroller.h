@@ -16,14 +16,15 @@ public:
     void goBack();
     void turnLeft(bool withFront);
     void turnRight(bool withFront);
+    void stop();
 
     // --- Sensor ---
-
+    void getCamStream();
 
 
 private:
-    MyRobot _myRobot;
-    int _speed;
+    MyRobot * _myRobot;
+    char _speed;
 
 };
 

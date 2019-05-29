@@ -69,17 +69,16 @@ void MyRobot::MyTimerSlot() {
     Mutex.unlock();
 }
 
-void MyRobot::speed(char speed_right, char speed_left, boolean dir_right, boolean dir_left)
+void MyRobot::speed(char speed_right, char speed_left, bool dir_right, bool dir_left)
 {
         DataToSend[2] = speed_left;
         DataToSend[3] = 0;
         DataToSend[4] = speed_right;
         DataToSend[5] = 0;
-        DataToSend[6] = (0b1010000 | (dir_left << 6) | (dir_right << 4));
-        qint16 crc = crc16(wifibot->DataToSend,7);
+        DataToSend[6] = (0b0000000 | (dir_left << 6) | (dir_right << 4));
+        qint16 crc = crc16(DataToSend,7);
         DataToSend[7] = (qint8)(crc);
         DataToSend[8] = (qint8)(crc >> 8);
-        PrintData(wifibot->DataToSend);
 }
 
 qint16 MyRobot::crc16(QByteArray adresse_tab , unsigned char taille_max)

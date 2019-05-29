@@ -42,6 +42,8 @@ void MainWindow::init(){
     connect(ui->connectionButton,SIGNAL(clicked()),SLOT(startConnection()));
     connect(ui->speedSlider,SIGNAL(valueChanged(int)),SLOT(handleSlider()));
 
+    // Default speed
+    //ui->speedSlider->setValue(50);
     // --- Init WifiBotObject ---
     wifiBot = new MyRobot();
     rbController = new RobotController(wifiBot);
@@ -56,6 +58,8 @@ void MainWindow::startConnection(){
 
         // --- MYROBOT CALL ---
         wifiBot->doConnect();
+
+        //load(QUrl("http://192.168.1.106:8080/?action=stream"));
     }else {
         ui->console->append("Disconnection...");
         ui->connectionButton->setText("Connection");
@@ -72,6 +76,7 @@ void MainWindow::go(int way){
         case 1:
             qDebug() << "go front";
             rbController->goFront();
+            setBatteryBar(15);
             break;
         case 2:
             qDebug() << "go back";
@@ -95,11 +100,15 @@ void MainWindow::go(int way){
             break;
         default:
            qDebug() << "Error - Switch - go() - Not suppose to be here... ";
+           rbController->stop();
     }
 
 }
 
 void MainWindow::handleSlider(){
+    // Set new Speed Value
+    rbController->setSpeed((ui->speedSlider->value()*240)/100);
+
     ui->speedValue->display(ui->speedSlider->value());
     ui->progressBar->setValue(ui->speedSlider->value());
 }
@@ -121,14 +130,16 @@ void MainWindow::setBatteryBar(int value){
 }
 
 /// --- Direction Button ---
-void MainWindow::on_front_clicked(){    go(1);  }
-void MainWindow::on_back_clicked(){    go(2);  }
-void MainWindow::on_left_clicked(){    go(3);  }
-void MainWindow::on_right_clicked(){    go(4);  }
-void MainWindow::on_frontLeft_clicked(){    go(5);  }
-void MainWindow::on_frontRight_clicked(){    go(6);  }
+void MainWindow::on_front_pressed(){    go(1);  }
+void MainWindow::on_back_pressed(){    go(2);  }
+void MainWindow::on_left_pressed(){    go(3);  }
+void MainWindow::on_right_pressed(){    go(4);  }
+void MainWindow::on_frontLeft_pressed(){    go(5);  }
+void MainWindow::on_frontRight_pressed(){    go(6);  }
 
-
-
-
-
+void MainWindow::on_front_released(){   rbController->stop();  }
+void MainWindow::on_left_released(){    rbController->stop();  }
+void MainWindow::on_back_released(){    rbController->stop();  }
+void MainWindow::on_right_released(){    rbController->stop();  }
+void MainWindow::on_frontLeft_released(){  rbController->stop();  }
+void MainWindow::on_frontRight_released(){   rbController->stop();  }
