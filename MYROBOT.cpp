@@ -69,3 +69,40 @@ void MyRobot::MyTimerSlot() {
     Mutex.unlock();
 }
 
+void MyRobot::speed(char speed_right, char speed_left, boolean dir_right, boolean dir_left)
+{
+        DataToSend[2] = speed_left;
+        DataToSend[3] = 0;
+        DataToSend[4] = speed_right;
+        DataToSend[5] = 0;
+        DataToSend[6] = (0b1010000 | (dir_left << 6) | (dir_right << 4));
+        qint16 crc = crc16(wifibot->DataToSend,7);
+        DataToSend[7] = (qint8)(crc);
+        DataToSend[8] = (qint8)(crc >> 8);
+        PrintData(wifibot->DataToSend);
+}
+
+qint16 MyRobot::crc16(QByteArray adresse_tab , unsigned char taille_max)
+{
+        unsigned int Crc = 0xFFFF;
+        unsigned int Polynome = 0xA001;
+        unsigned int CptOctet = 0;
+        unsigned int CptBit = 0;
+        unsigned int Parity= 0;
+
+        Crc = 0xFFFF;
+        Polynome = 0xA001; // Polynôme = 2^15 + 2^13 + 2^0 = 0xA001.
+
+        for ( CptOctet= 1 ; CptOctet < taille_max ; CptOctet++)
+        {
+                Crc ^= (unsigned char)(adresse_tab[CptOctet]); //Ou exculsif entre octet message et CRC
+
+                for ( CptBit = 0; CptBit <= 7 ; CptBit++) /* Mise a 0 du compteur nombre de bits */
+                {
+                        Parity= Crc;
+                        Crc >>= 1; // Décalage a droite du crc
+                        if (Parity%2 == 1) Crc ^= Polynome; // Test si nombre impair -> Apres decalage à droite il y aura une retenue
+                } // "ou exclusif" entre le CRC et le polynome generateur.
+        }
+        return(Crc);
+}
