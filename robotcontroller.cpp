@@ -1,28 +1,47 @@
 #include "robotcontroller.h"
 
-RobotController::RobotController(MyRobot *robot)
+// Constructor
+RobotController::RobotController()
 {
-    _myRobot = robot;
+    _myRobot = new MyRobot();
     _speed = 0;
 }
 
-void RobotController::setSpeed(int value){
-    _speed = value;
+RobotController::~RobotController(){
+    delete _myRobot;
 }
 
+void RobotController::setSpeed(int value){   _speed = value;  }
+
+// --- Connection ---
+void RobotController::startConnection(){
+    _myRobot->doConnect();
+}
+
+void RobotController::endConnection(){
+    _myRobot->disConnect();
+}
+
+
+
+
 // --- Direction ---
+
 void RobotController::goFront(){
     _myRobot->speed(_speed,_speed,true,true);
 }
+
 void RobotController::goBack(){
     _myRobot->speed(_speed,_speed,false,false);
 }
+
 void RobotController::turnLeft(bool withFront){
     if (withFront) {
         _myRobot->speed(_speed,_speed-50,true,true);
     }else
         _myRobot->speed(_speed,_speed,true,false);
 }
+
 void RobotController::turnRight(bool withFront){
     if(withFront){
         _myRobot->speed(_speed-50,_speed,true,true);

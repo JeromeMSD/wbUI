@@ -6,8 +6,12 @@
 class RobotController
 {
 public:
-    RobotController(MyRobot *myRobot);
+    RobotController();
     ~RobotController();
+
+    // --- Connection ---
+    void startConnection();
+    void endConnection();
 
     void setSpeed(int value);
 

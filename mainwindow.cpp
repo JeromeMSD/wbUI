@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "MYROBOT.h"
 
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
@@ -10,10 +11,9 @@ MainWindow::MainWindow(QWidget *parent) :
     init();
 }
 
-
-
 MainWindow::~MainWindow()
 {
+    delete rbController;
     delete ui;
 }
 
@@ -42,32 +42,62 @@ void MainWindow::init(){
     connect(ui->connectionButton,SIGNAL(clicked()),SLOT(startConnection()));
     connect(ui->speedSlider,SIGNAL(valueChanged(int)),SLOT(handleSlider()));
 
-    // Default speed
-    //ui->speedSlider->setValue(50);
-    // --- Init WifiBotObject ---
-    wifiBot = new MyRobot();
-    rbController = new RobotController(wifiBot);
+    // --- Init wifiBot Controler ---
+    rbController = new RobotController();
 
+    // Default speed
+    ui->speedSlider->setValue(75);
 }
 
 void MainWindow::startConnection(){
-
     if(ui->connectionButton->text() == "Connection"){
         ui->console->append("Try to connect...");
-        ui->connectionButton->setText("Disconnection");
 
-        // --- MYROBOT CALL ---
-        wifiBot->doConnect();
+        rbController->startConnection();
+
+        ui->console->append(" ### wifiBot Connected ### ");
+        ui->connectionButton->setText("Disconnection");
+        ui->state->setText("Connected to wifiBot");
+
+        // Try to get webcam video stream
+        ui->console->append("research of video stream from");
 
         //load(QUrl("http://192.168.1.106:8080/?action=stream"));
+        ui->console->append(" ### wifiBot Connected ### ");
+
     }else {
         ui->console->append("Disconnection...");
         ui->connectionButton->setText("Connection");
+        ui->state->setText("Disconnected");
 
-        // --- MYROBOT CALL ---
-        wifiBot->disConnect();
+        rbController->endConnection();
+        ui->console->append(" ### wifiBot Disconnected ### ");
     }
 
+}
+
+// Set a new Speed Value for UI and for the wifiBot
+void MainWindow::handleSlider(){
+    rbController->setSpeed((ui->speedSlider->value()*240)/100);
+
+    ui->speedValue->display(ui->speedSlider->value());
+    ui->progressBar->setValue(ui->speedSlider->value());
+}
+
+void MainWindow::setBatteryBar(int value){
+    ui->batteryBar->setValue(value);
+    if(value < 20)
+           ui->batteryBar->setStyleSheet("QProgressBar{\
+                                         color:#eee;\
+                                         }\
+                                         QProgressBar:horizontal {\
+                                         border:#2c2c2c;\
+                                         padding-right: 30px;\
+                                         text-align : right;\
+                                         }\
+                                         QProgressBar::chunk:horizontal {\
+                                         background: qlineargradient(x1: -0.5, y1: 0.5, x2: 1, y2: 0.5, stop: 1 #EE0000, stop: 0 #2c2c2c);\
+                                         }");
 }
 
 
@@ -102,31 +132,6 @@ void MainWindow::go(int way){
            qDebug() << "Error - Switch - go() - Not suppose to be here... ";
            rbController->stop();
     }
-
-}
-
-void MainWindow::handleSlider(){
-    // Set new Speed Value
-    rbController->setSpeed((ui->speedSlider->value()*240)/100);
-
-    ui->speedValue->display(ui->speedSlider->value());
-    ui->progressBar->setValue(ui->speedSlider->value());
-}
-
-void MainWindow::setBatteryBar(int value){
-    ui->batteryBar->setValue(value);
-    if(value < 20)
-           ui->batteryBar->setStyleSheet("QProgressBar{\
-                                         color:#eee;\
-                                         }\
-                                         QProgressBar:horizontal {\
-                                         border:#2c2c2c;\
-                                         padding-right: 30px;\
-                                         text-align : right;\
-                                         }\
-                                         QProgressBar::chunk:horizontal {\
-                                         background: qlineargradient(x1: -0.5, y1: 0.5, x2: 1, y2: 0.5, stop: 1 #EE0000, stop: 0 #2c2c2c);\
-                                         }");
 }
 
 /// --- Direction Button ---
@@ -143,3 +148,35 @@ void MainWindow::on_back_released(){    rbController->stop();  }
 void MainWindow::on_right_released(){    rbController->stop();  }
 void MainWindow::on_frontLeft_released(){  rbController->stop();  }
 void MainWindow::on_frontRight_released(){   rbController->stop();  }
+
+/// --- Direction keyboard ---
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key()) {
+        case Qt::Key_Forward:
+            go(1);
+            break;
+        case Qt::Key_Back:
+            go(2);
+            break;
+        case Qt::Key_Left:
+            go(3);
+            break;
+        case Qt::Key_Right:
+            go(4);
+            break;
+        default:
+            rbController->stop();
+    }
+
+    if(event->key() == Qt::Key_Forward && event->key() == Qt::Key_Left)
+        go(5);
+    else if (event->key() == Qt::Key_Forward && event->key() == Qt::Key_Right)
+        go(6);
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_Forward || event->key() == Qt::Key_Back || event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
+        rbController->stop();
+}

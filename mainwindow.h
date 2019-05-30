@@ -4,6 +4,9 @@
 #include <QMainWindow>
 #include <QPushButton>
 #include <QSlider>
+#include <QKeyEvent>
+#include <QWidget>
+#include <QtGui>
 
 #include "MYROBOT.h"
 #include "robotcontroller.h"
@@ -21,6 +24,11 @@ public:
     ~MainWindow();
     void init();
     static void writeConsole(char* text);
+
+protected:
+    /// --- KeyEvent ---
+    void keyPressEvent(QKeyEvent *);
+    void keyReleaseEvent(QKeyEvent *);
 
 private slots:
     void startConnection();
@@ -46,8 +54,8 @@ private:
     Ui::MainWindow *ui;
 
     /// --- Working variables ---
-    MyRobot *wifiBot;
     RobotController *rbController;
+
 };
 
 #endif // MAINWINDOW_H
