@@ -81,27 +81,19 @@ void MyRobot::speed(char speed_right, char speed_left, bool dir_right, bool dir_
         DataToSend[8] = (qint8)(crc >> 8);
 }
 
-qint16 MyRobot::crc16(QByteArray adresse_tab , unsigned char taille_max)
-{
-        unsigned int Crc = 0xFFFF;
-        unsigned int Polynome = 0xA001;
-        unsigned int CptOctet = 0;
-        unsigned int CptBit = 0;
-        unsigned int Parity= 0;
+qint16 MyRobot::crc16(QByteArray adresse_tab ,char max_lenght){
+        int crc = 0xFFFF;
+        int poly = 0xA001;
+        int parity= 0;
 
-        Crc = 0xFFFF;
-        Polynome = 0xA001; // Polynôme = 2^15 + 2^13 + 2^0 = 0xA001.
-
-        for ( CptOctet= 1 ; CptOctet < taille_max ; CptOctet++)
-        {
-                Crc ^= (unsigned char)(adresse_tab[CptOctet]); //Ou exculsif entre octet message et CRC
-
-                for ( CptBit = 0; CptBit <= 7 ; CptBit++) /* Mise a 0 du compteur nombre de bits */
-                {
-                        Parity= Crc;
-                        Crc >>= 1; // Décalage a droite du crc
-                        if (Parity%2 == 1) Crc ^= Polynome; // Test si nombre impair -> Apres decalage à droite il y aura une retenue
-                } // "ou exclusif" entre le CRC et le polynome generateur.
+        for (int cptO= 1 ; cptO < max_lenght ; cptO++){
+                crc ^= (char)(adresse_tab[cptO]);
+                for (int cptB = 0; cptB <= 7 ; cptB++){
+                        parity= crc;
+                        crc >>= 1;
+                        if (parity%2 == 1) crc ^= poly;
+                }
         }
-        return(Crc);
+
+        return(crc);
 }

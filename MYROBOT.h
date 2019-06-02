@@ -27,7 +27,7 @@ public slots:
     void readyRead();
     void MyTimerSlot();
     void speed(char speed_right, char speed_left, bool dir_right, bool dir_left);
-    qint16 crc16(QByteArray adresse_tab , unsigned char taille_max);
+    qint16 crc16(QByteArray adresse_tab , char taille_max);
 private:
     QTcpSocket *socket;
     QTimer *TimerEnvoi;
