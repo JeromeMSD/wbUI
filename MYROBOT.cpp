@@ -81,14 +81,14 @@ void MyRobot::speed(char speed_right, char speed_left, bool dir_right, bool dir_
         DataToSend[8] = (qint8)(crc >> 8);
 }
 
-qint16 MyRobot::crc16(QByteArray adresse_tab ,char max_lenght){
-        int crc = 0xFFFF;
-        int poly = 0xA001;
-        int parity= 0;
+qint16 MyRobot::crc16(QByteArray adresse_tab ,unsigned char max_lenght){
+        unsigned int crc = 0xFFFF;
+        unsigned int poly = 0xA001;
+        unsigned int parity= 0;
 
-        for (int cptO= 1 ; cptO < max_lenght ; cptO++){
-                crc ^= (char)(adresse_tab[cptO]);
-                for (int cptB = 0; cptB <= 7 ; cptB++){
+        for (unsigned int cptO= 1 ; cptO < max_lenght ; cptO++){
+                crc ^= (unsigned char)(adresse_tab[cptO]);
+                for (unsigned int cptB = 0; cptB <= 7 ; cptB++){
                         parity= crc;
                         crc >>= 1;
                         if (parity%2 == 1) crc ^= poly;

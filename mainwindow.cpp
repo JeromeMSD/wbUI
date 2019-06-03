@@ -29,9 +29,11 @@ void MainWindow::init(){
 
     strftime (buffer,80,"%d - %m - %y",timeinfo);
 
+    // --- Set UI elements ---
     ui->date->setText(buffer);
     setBatteryBar(100);
     ui->progressBar->setValue(0);
+
 
     // --- Set interactive component ---
     // Slider
