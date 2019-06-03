@@ -5,6 +5,8 @@ RobotController::RobotController()
 {
     _myRobot = new MyRobot();
     _speed = 0;
+    _sensorL;
+    _sensorR;
 }
 
 RobotController::~RobotController(){
@@ -59,3 +61,14 @@ void RobotController::stop(){
 void RobotController::getCamStream(){
 
 }
+
+void RobotController::getData(){
+    QByteArray data;
+    data = getDataReceive();
+    _battery = data[2];
+
+}
+
+
+
+

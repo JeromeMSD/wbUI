@@ -24,11 +24,15 @@ public:
 
     // --- Sensor ---
     void getCamStream();
+    void getData();
 
 
 private:
     MyRobot * _myRobot;
     char _speed;
+    int _battery;
+    int _sensorL;
+    int _sensorR;
 
 };
 
