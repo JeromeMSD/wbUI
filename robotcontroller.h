@@ -23,16 +23,25 @@ public:
     void stop();
 
     // --- Sensor ---
-    void getCamStream();
-    void getData();
+    void getData();                 // HardWare recuperation method
 
+    QString getCamStream();
+    int getBattery();
+    int getSensorFL();
+    int getSensorFR();
+    int getSensorBL();
+    int getSensorBR();
 
 private:
     MyRobot * _myRobot;
     char _speed;
-    int _battery;
-    int _sensorL;
-    int _sensorR;
+
+    /// -- Vars for Sensor --
+    unsigned char _battery;
+    int _sensorFL;                  // Front Left proximity sensor
+    int _sensorFR;                  // Front Right proximity sensor
+    int _sensorBL;                  // Back Left proximity sensor
+    int _sensorBR;                  // Back Right proximity sensor
 
 };
 

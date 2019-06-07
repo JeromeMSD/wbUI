@@ -6,7 +6,10 @@
 
 QT       += core gui
 QT       += network
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+#greaterThan(QT_MAJOR_VERSION, 4): QT += webenginewidgets
+
 
 TARGET = wbUI
 TEMPLATE = app
@@ -46,4 +49,5 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 DISTFILES += \
     background_app.jpg
 
-RESOURCES +=
+RESOURCES += \
+    img.qrc

@@ -8,6 +8,8 @@
 #include <QWidget>
 #include <QtGui>
 
+//#include <QWebEngineView>
+
 #include "MYROBOT.h"
 #include "robotcontroller.h"
 
@@ -55,7 +57,9 @@ private:
 
     /// --- Working variables ---
     RobotController *rbController;
+    //QWebEngineView *view;
 
+    void refreshUI();
 };
 
 #endif // MAINWINDOW_H

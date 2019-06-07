@@ -81,8 +81,8 @@ void MyRobot::speed(char speed_right, char speed_left, bool dir_right, bool dir_
 }
 
 
-qint16 MyRobot::getDataReceive(){
-    return data_tab;
+QByteArray MyRobot::getDataReceive(){
+    return DataReceived;
 }
 
 qint16 MyRobot::crc16(QByteArray adresse_tab ,unsigned char max_lenght){

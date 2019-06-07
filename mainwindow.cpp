@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "MYROBOT.h"
 
+//#include <QWebEngineView>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -34,7 +35,6 @@ void MainWindow::init(){
     setBatteryBar(100);
     ui->progressBar->setValue(0);
 
-
     // --- Set interactive component ---
     // Slider
     ui->speedSlider->setMinimum(0);
@@ -64,7 +64,14 @@ void MainWindow::startConnection(){
         // Try to get webcam video stream
         ui->console->append("research of video stream from");
 
-        //load(QUrl("http://192.168.1.106:8080/?action=stream"));
+        /*
+         *  Probleme avec l'importation de webenginewidgets
+         *
+        QWebEngineView *view = new QWebEngineView(ui);
+        view->load(QUrl("http://qt-project.org/"));
+        //load(QUrl(rbController->getCamStream()));
+         */
+
         ui->console->append(" ### wifiBot Connected ### ");
 
     }else {
@@ -84,8 +91,10 @@ void MainWindow::handleSlider(){
 
     ui->speedValue->display(ui->speedSlider->value());
     ui->progressBar->setValue(ui->speedSlider->value());
+    ui->centralWidget->setFocus();
 }
 
+// Set battery with value place in parameter and set color to red if value inferieur.
 void MainWindow::setBatteryBar(int value){
     ui->batteryBar->setValue(value);
     if(value < 20)
@@ -109,6 +118,7 @@ void MainWindow::go(int way){
             qDebug() << "go front";
             rbController->goFront();
             setBatteryBar(15);
+            rbController->getData();
             break;
         case 2:
             qDebug() << "go back";
@@ -144,21 +154,21 @@ void MainWindow::on_right_pressed(){    go(4);  }
 void MainWindow::on_frontLeft_pressed(){    go(5);  }
 void MainWindow::on_frontRight_pressed(){    go(6);  }
 
-void MainWindow::on_front_released(){   rbController->stop();  }
-void MainWindow::on_left_released(){    rbController->stop();  }
-void MainWindow::on_back_released(){    rbController->stop();  }
-void MainWindow::on_right_released(){    rbController->stop();  }
-void MainWindow::on_frontLeft_released(){  rbController->stop();  }
-void MainWindow::on_frontRight_released(){   rbController->stop();  }
+void MainWindow::on_front_released(){   rbController->stop(); ui->centralWidget->setFocus(); }
+void MainWindow::on_left_released(){    rbController->stop(); ui->centralWidget->setFocus(); }
+void MainWindow::on_back_released(){    rbController->stop(); ui->centralWidget->setFocus(); }
+void MainWindow::on_right_released(){    rbController->stop(); ui->centralWidget->setFocus(); }
+void MainWindow::on_frontLeft_released(){  rbController->stop(); ui->centralWidget->setFocus(); }
+void MainWindow::on_frontRight_released(){   rbController->stop();  ui->centralWidget->setFocus(); }
 
 /// --- Direction keyboard ---
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     switch (event->key()) {
-        case Qt::Key_Forward:
+        case Qt::Key_Up:
             go(1);
             break;
-        case Qt::Key_Back:
+        case Qt::Key_Down:
             go(2);
             break;
         case Qt::Key_Left:
@@ -170,15 +180,25 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
         default:
             rbController->stop();
     }
-
-    if(event->key() == Qt::Key_Forward && event->key() == Qt::Key_Left)
-        go(5);
-    else if (event->key() == Qt::Key_Forward && event->key() == Qt::Key_Right)
-        go(6);
 }
 
 void MainWindow::keyReleaseEvent(QKeyEvent *event)
 {
-    if(event->key() == Qt::Key_Forward || event->key() == Qt::Key_Back || event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
+    if(event->key() == Qt::Key_Up || event->key() == Qt::Key_Down || event->key() == Qt::Key_Left || event->key() == Qt::Key_Right)
         rbController->stop();
+
+    // Refresh after release. Going to be change to thread
+    this->refreshUI();
+}
+
+void MainWindow::refreshUI(){
+    rbController->getData();
+
+    ui->console->append("--- Sensors ---");
+    ui->console->append("Niveau de Batterie :" + rbController->getBattery());
+    ui->console->append("Prox. detector Front-Left :" + rbController->getSensorFL());
+    ui->console->append("Prox. detector Front-Right :" + rbController->getSensorFR());
+    ui->console->append("Prox. detector Back-Left :" + rbController->getSensorBL());
+    ui->console->append("Prox. detector Back-Right :" + rbController->getSensorBR());
+
 }
