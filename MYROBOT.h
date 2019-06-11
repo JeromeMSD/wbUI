@@ -29,6 +29,15 @@ public slots:
     void speed(char speed_right, char speed_left, bool dir_right, bool dir_left);
     QByteArray getDataReceive();
     qint16 crc16(QByteArray adresse_tab , unsigned char max_lenght);
+    int getBat();
+    int getSensorFL();
+    int getSensorFR();
+    int getSensorBL();
+    int getSensorBR();
+    float getOdo();
+    int getSpeedWR();
+    int getSpeedWL();
+
 private:
     QTcpSocket *socket;
     QTimer *TimerEnvoi;

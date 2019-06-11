@@ -6,6 +6,7 @@
 #include <QSlider>
 #include <QKeyEvent>
 #include <QWidget>
+#include<QWebEngineView>
 #include <QtGui>
 
 //#include <QWebEngineView>

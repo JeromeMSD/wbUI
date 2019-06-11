@@ -37,7 +37,7 @@ private:
     char _speed;
 
     /// -- Vars for Sensor --
-    unsigned char _battery;
+    int _battery;
     int _sensorFL;                  // Front Left proximity sensor
     int _sensorFR;                  // Front Right proximity sensor
     int _sensorBL;                  // Back Left proximity sensor

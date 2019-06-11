@@ -1,5 +1,9 @@
 #include "robotcontroller.h"
 
+#include <iostream>;
+
+using namespace :: std;
+
 // Constructor
 RobotController::RobotController()
 {
@@ -62,16 +66,15 @@ void RobotController::stop(){
 /// --- Sensor ---
 
 void RobotController::getData(){
-    QByteArray data = _myRobot->getDataReceive();
-    _battery =(unsigned char) (data[2] >> 2);
-    qDebug() << _battery;
+
 }
 
+/*
 QString RobotController::getCamStream(){
-    QString streamAddr = "http://192.168.1.106:8080/?action=stream";
+    QString streamAddr = "http://192.168.1.11:8080/?action=stream";
     return streamAddr;
 }
-
+*/
 int RobotController::getBattery() {     return _battery;    }
 int RobotController::getSensorFL() {     return _sensorFL;    }
 int RobotController::getSensorFR() {     return _sensorFR;    }

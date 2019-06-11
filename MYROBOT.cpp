@@ -28,7 +28,7 @@ void MyRobot::doConnect() {
     connect(socket, SIGNAL(readyRead()),this, SLOT(readyRead()));
     qDebug() << "connecting..."; // this is not blocking call
     //socket->connectToHost("LOCALHOST", 15020);
-    socket->connectToHost("192.168.1.106", 15020); // connection to wifibot
+    socket->connectToHost("192.168.1.11", 15020); // connection to wifibot
     // we need to wait...
     if(!socket->waitForConnected(5000)) {
         qDebug() << "Error: " << socket->errorString();
@@ -60,6 +60,8 @@ void MyRobot::readyRead() {
     DataReceived = socket->readAll();
     emit updateUI(DataReceived);
     qDebug() << DataReceived[0] << DataReceived[1] << DataReceived[2];
+    qDebug()<< "BAT :" <<this->getBat() << "SPEEDWR " << this->getSpeedWR() << "SPEEDWL "<<this->getSpeedWL(); ;
+    qDebug()<< "SENSROFL :" <<this->getSensorFL() << "SENSORBR" << this->getSensorBR() << "SENSORBL" << this->getSensorBL()  ;
 }
 
 void MyRobot::MyTimerSlot() {
@@ -101,3 +103,47 @@ qint16 MyRobot::crc16(QByteArray adresse_tab ,unsigned char max_lenght){
 
         return(crc);
 }
+
+
+int MyRobot::getBat(){
+    int battery = (unsigned char) DataReceived[2]/10;
+    if (battery == 18 ){
+         battery=100;
+
+     }
+    else battery = (battery*100)/12;
+    return battery;
+}
+
+int MyRobot::getSensorFL(){
+    return (unsigned char) DataReceived[3];
+}
+
+int MyRobot::getSensorFR(){
+    return (unsigned char) DataReceived[11];
+}
+
+int MyRobot::getSensorBL(){
+    return (unsigned char) DataReceived[4];
+}
+
+int MyRobot::getSensorBR(){
+    return (unsigned char) DataReceived[12];
+}
+
+float MyRobot::getOdo(){
+    return (float) DataReceived[5];
+}
+
+int MyRobot::getSpeedWR(){
+    int wSpeed = (unsigned char) (DataReceived[1] + DataReceived[0]);
+    if(wSpeed > 32767) wSpeed -= 65536;
+    return wSpeed;
+}
+
+int MyRobot::getSpeedWL(){
+    int wSpeed = (unsigned char) (DataReceived[10] + DataReceived[9]);
+    if(wSpeed > 32767) wSpeed -= 65536;
+    return wSpeed;
+}
+

@@ -64,13 +64,10 @@ void MainWindow::startConnection(){
         // Try to get webcam video stream
         ui->console->append("research of video stream from");
 
-        /*
-         *  Probleme avec l'importation de webenginewidgets
-         *
-        QWebEngineView *view = new QWebEngineView(ui);
-        view->load(QUrl("http://qt-project.org/"));
-        //load(QUrl(rbController->getCamStream()));
-         */
+
+        ui->web->load(QUrl("http://192.168.1.11:8080/?action=stream"));
+        ui->web->show();
+
 
         ui->console->append(" ### wifiBot Connected ### ");
 
