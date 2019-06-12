@@ -1,6 +1,7 @@
 #include "robotcontroller.h"
 
-#include <iostream>;
+#include <iostream>
+#include <QString>
 
 using namespace :: std;
 
@@ -22,6 +23,7 @@ RobotController::~RobotController(){
 
 void RobotController::setSpeed(int value){   _speed = value;  }
 
+
 // --- Connection ---
 void RobotController::startConnection(){
     _myRobot->doConnect();
@@ -30,7 +32,6 @@ void RobotController::startConnection(){
 void RobotController::endConnection(){
     _myRobot->disConnect();
 }
-
 
 
 
@@ -66,17 +67,47 @@ void RobotController::stop(){
 /// --- Sensor ---
 
 void RobotController::getData(){
-
+    _myRobot->readyRead();
+    _sensorFL = distanceConversion(_myRobot->getSensorFL());
+    _sensorFR = distanceConversion(_myRobot->getSensorFR());
+    _sensorBL = distanceConversion(_myRobot->getSensorBL());
+    _sensorBR = distanceConversion(_myRobot->getSensorBR());
 }
 
-/*
+
 QString RobotController::getCamStream(){
     QString streamAddr = "http://192.168.1.11:8080/?action=stream";
     return streamAddr;
 }
-*/
+
 int RobotController::getBattery() {     return _battery;    }
-int RobotController::getSensorFL() {     return _sensorFL;    }
-int RobotController::getSensorFR() {     return _sensorFR;    }
-int RobotController::getSensorBL() {     return _sensorBL;    }
-int RobotController::getSensorBR() {     return _sensorBR;    }
+float RobotController::getSensorFL() {     return _sensorFL;    }
+float RobotController::getSensorFR() {     return _sensorFR;    }
+float RobotController::getSensorBL() {     return _sensorBL;    }
+float RobotController::getSensorBR() {     return _sensorBR;    }
+
+float distanceConversion(int sensorVal){
+    if(sensorVal > 215)
+        return -15/100;
+    if(sensorVal < 31)
+        return 150/100;
+
+    // 255 distance values
+    // We've take 5 cm as limit for change
+    int distance[255] = {0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,
+                         0,0,0,0,0, 150,145,145,145,140, 140,140,140,135,135, 135,135,135,135,135, 130,125,125,120,115,
+                         110,105,100,95,90, 90,90,85,85,85, 80,80,80,80,80, 75,75,75,75,75, 70,70,70,70,70,
+                         70,70,70,65,65, 65,65,65,65,65, 60,60,60,60,60, 60,55,55,55,55, 55,55,50,50,50,
+
+                         50,50,50,50,50, 50,45,45,45,45, 45,45,45,45,45, 45,45,40,40,40, 40,40,40,40,40,
+                         40,40,40,40,40, 40,40,40,40,40, 40,40,40,40,40, 40,40,35,35,35, 35,35,35,35,35,
+                         35,35,35,35,35, 35,35,35,30,30, 30,30,30,30,30, 30,30,30,30,30, 30,30,30,25,25,
+                         25,25,25,25,25, 25,25,25,25,25, 25,25,25,20,20, 20,20,20,20,20, 20,20,20,20,20,
+
+                         15,15,15,15,15, 15,15,15,15,15, 15,15,15,15,-15, 0,0,0,0,0, 0,0,0,0,0,
+                         0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0, 0,0,0,0,0,
+                         0,0,0,0,0,
+                        };
+
+    return distance[sensorVal]/100;
+}

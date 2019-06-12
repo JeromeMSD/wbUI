@@ -36,8 +36,6 @@ protected:
 private slots:
     void startConnection();
     void handleSlider();
-    void setBatteryBar(int value);
-    void go(int way);
 
     void on_front_pressed();
     void on_frontRight_pressed();
@@ -61,6 +59,9 @@ private:
     //QWebEngineView *view;
 
     void refreshUI();
+    void changeState(int state);
+    void setBatteryBar(int value);
+    void go(int way);
 };
 
 #endif // MAINWINDOW_H

@@ -23,7 +23,7 @@ void MainWindow::init(){
     struct tm * timeinfo;
     char buffer [80];
 
-    ui->state->setText("Disconnected");
+    this->changeState(1);
     // --- Date Set ---
     time (&rawtime);
     timeinfo = localtime (&rawtime);
@@ -59,13 +59,12 @@ void MainWindow::startConnection(){
 
         ui->console->append(" ### wifiBot Connected ### ");
         ui->connectionButton->setText("Disconnection");
-        ui->state->setText("Connected to wifiBot");
+        this->changeState(0);
 
         // Try to get webcam video stream
         ui->console->append("research of video stream from");
 
-
-        ui->web->load(QUrl("http://192.168.1.11:8080/?action=stream"));
+        ui->web->load(QUrl(rbController->getCamStream()));
         ui->web->show();
 
 
@@ -74,7 +73,7 @@ void MainWindow::startConnection(){
     }else {
         ui->console->append("Disconnection...");
         ui->connectionButton->setText("Connection");
-        ui->state->setText("Disconnected");
+        this->changeState(1);
 
         rbController->endConnection();
         ui->console->append(" ### wifiBot Disconnected ### ");
@@ -91,31 +90,18 @@ void MainWindow::handleSlider(){
     ui->centralWidget->setFocus();
 }
 
-// Set battery with value place in parameter and set color to red if value inferieur.
-void MainWindow::setBatteryBar(int value){
-    ui->batteryBar->setValue(value);
-    if(value < 20)
-           ui->batteryBar->setStyleSheet("QProgressBar{\
-                                         color:#eee;\
-                                         }\
-                                         QProgressBar:horizontal {\
-                                         border:#2c2c2c;\
-                                         padding-right: 30px;\
-                                         text-align : right;\
-                                         }\
-                                         QProgressBar::chunk:horizontal {\
-                                         background: qlineargradient(x1: -0.5, y1: 0.5, x2: 1, y2: 0.5, stop: 1 #EE0000, stop: 0 #2c2c2c);\
-                                         }");
-}
 
 
+/*
+ * -----------------------
+ *    Moving function
+ * -----------------------
+ */
 void MainWindow::go(int way){
     switch(way){
         case 1:
             qDebug() << "go front";
             rbController->goFront();
-            setBatteryBar(15);
-            rbController->getData();
             break;
         case 2:
             qDebug() << "go back";
@@ -129,14 +115,7 @@ void MainWindow::go(int way){
             qDebug() << "go right";
             rbController->turnRight(false);
             break;
-        case 5:
-            qDebug() << "go front left";
-            rbController->turnLeft(true);
-            break;
-        case 6:
-            qDebug() << "go front right";
-            rbController->turnRight(true);
-            break;
+
         default:
            qDebug() << "Error - Switch - go() - Not suppose to be here... ";
            rbController->stop();
@@ -148,15 +127,11 @@ void MainWindow::on_front_pressed(){    go(1);  }
 void MainWindow::on_back_pressed(){    go(2);  }
 void MainWindow::on_left_pressed(){    go(3);  }
 void MainWindow::on_right_pressed(){    go(4);  }
-void MainWindow::on_frontLeft_pressed(){    go(5);  }
-void MainWindow::on_frontRight_pressed(){    go(6);  }
 
 void MainWindow::on_front_released(){   rbController->stop(); ui->centralWidget->setFocus(); }
 void MainWindow::on_left_released(){    rbController->stop(); ui->centralWidget->setFocus(); }
 void MainWindow::on_back_released(){    rbController->stop(); ui->centralWidget->setFocus(); }
 void MainWindow::on_right_released(){    rbController->stop(); ui->centralWidget->setFocus(); }
-void MainWindow::on_frontLeft_released(){  rbController->stop(); ui->centralWidget->setFocus(); }
-void MainWindow::on_frontRight_released(){   rbController->stop();  ui->centralWidget->setFocus(); }
 
 /// --- Direction keyboard ---
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -188,14 +163,92 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event)
     this->refreshUI();
 }
 
+
+/*
+ * ------------------
+ *    UI function
+ * ------------------
+ */
+
+// Set battery with value place in parameter and set color to red if value inferieur.
+void MainWindow::setBatteryBar(int value){
+    ui->batteryBar->setValue(value);
+    if(value < 20)
+           ui->batteryBar->setStyleSheet("QProgressBar{\
+                                         color:#eee;\
+                                         }\
+                                         QProgressBar:horizontal {\
+                                         border:#2c2c2c;\
+                                         padding-right: 30px;\
+                                         text-align : right;\
+                                         }\
+                                         QProgressBar::chunk:horizontal {\
+                                         background: qlineargradient(x1: -0.5, y1: 0.5, x2: 1, y2: 0.5, stop: 1 #EE0000, stop: 0 #2c2c2c);\
+                                         }");
+}
+
+// Change the top-left state text
+void MainWindow::changeState(int state){
+    switch (state) {
+        case 0:
+            ui->state->setText("Connected to wifiBot");
+            ui->state->setStyleSheet("color:#00EE00;");
+        case 1:
+            ui->state->setText("Disconnected");
+            ui->state->setStyleSheet("color:#ccc;");
+        case 2:
+            ui->state->setText("Error - WifiBot Error");
+            ui->state->setStyleSheet("color:#EE0000;");
+        default:
+            ui->state->setText("Error - State Error");
+            ui->state->setStyleSheet("color:#EEEE00;");
+    }
+}
+
+// Refresh UI and Console informations
 void MainWindow::refreshUI(){
     rbController->getData();
 
+    // -- Console display --
     ui->console->append("--- Sensors ---");
-    ui->console->append("Niveau de Batterie :" + rbController->getBattery());
-    ui->console->append("Prox. detector Front-Left :" + rbController->getSensorFL());
-    ui->console->append("Prox. detector Front-Right :" + rbController->getSensorFR());
-    ui->console->append("Prox. detector Back-Left :" + rbController->getSensorBL());
-    ui->console->append("Prox. detector Back-Right :" + rbController->getSensorBR());
+    ui->console->append("Niveau de Batterie :" + QString::number(rbController->getBattery()));
+    ui->console->append("Prox. detector Front-Left :" + QString::number(rbController->getSensorFL()));
+    ui->console->append("Prox. detector Front-Right :" + QString::number(rbController->getSensorFR()));
+    ui->console->append("Prox. detector Back-Left :" + QString::number(rbController->getSensorBL()));
+    ui->console->append("Prox. detector Back-Right :" + QString::number(rbController->getSensorBR()));
 
+    // -- UI display --
+    setBatteryBar(rbController->getBattery());
+
+    // Front Left Sensor
+    if(rbController->getSensorFL() < 0.0)
+        ui->flProx->setText("<"+QString::number(rbController->getSensorFL()) +" m");
+    else if(rbController->getSensorFL() >= 1.5)
+        ui->flProx->setText(">="+QString::number(rbController->getSensorFL()) +" m");
+    else
+        ui->flProx->setText(QString::number(rbController->getSensorFL()) +" m");
+
+    // Front Right Sensor
+    if(rbController->getSensorFR() < 0.0)
+        ui->frProx->setText("<"+QString::number(rbController->getSensorFR()) +" m");
+    else if(rbController->getSensorFR() < 1.5)
+        ui->frProx->setText(">="+QString::number(rbController->getSensorFR()) +" m");
+    else
+        ui->frProx->setText(QString::number(rbController->getSensorFR()) +" m");
+
+    // Back Left Sensor
+    if(rbController->getSensorBL() < 0.0)
+        ui->blProx->setText("<"+QString::number(rbController->getSensorBL()) +" m");
+    else if(rbController->getSensorBL() < 1.5)
+        ui->blProx->setText(">="+QString::number(rbController->getSensorBL()) +" m");
+    else
+        ui->blProx->setText(QString::number(rbController->getSensorBL()) +" m");
+
+    // Back Right Sensor
+    if(rbController->getSensorBR() < 0.0)
+        ui->brProx->setText("<"+QString::number(rbController->getSensorBR()) +" m");
+    else if(rbController->getSensorBR() < 1.5)
+        ui->brProx->setText(">="+QString::number(rbController->getSensorBR()) +" m");
+    else
+        ui->brProx->setText(QString::number(rbController->getSensorBR()) +" m");
 }

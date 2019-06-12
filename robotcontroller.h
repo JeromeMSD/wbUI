@@ -27,10 +27,10 @@ public:
 
     QString getCamStream();
     int getBattery();
-    int getSensorFL();
-    int getSensorFR();
-    int getSensorBL();
-    int getSensorBR();
+    float getSensorFL();
+    float getSensorFR();
+    float getSensorBL();
+    float getSensorBR();
 
 private:
     MyRobot * _myRobot;
@@ -38,10 +38,13 @@ private:
 
     /// -- Vars for Sensor --
     int _battery;
-    int _sensorFL;                  // Front Left proximity sensor
-    int _sensorFR;                  // Front Right proximity sensor
-    int _sensorBL;                  // Back Left proximity sensor
-    int _sensorBR;                  // Back Right proximity sensor
+    float _sensorFL;                  // Front Left proximity sensor
+    float _sensorFR;                  // Front Right proximity sensor
+    float _sensorBL;                  // Back Left proximity sensor
+    float _sensorBR;                  // Back Right proximity sensor
+
+    // Functions
+    float distanceConversion(int sensorVal);
 
 };
 
