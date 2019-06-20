@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>920</width>
-    <height>497</height>
+    <height>500</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -17,8 +17,8 @@
    <string notr="true">background-color:#2c2c2c;
 color:deepskyblue;
 Font-family:Agency FB;
-Font-size:15px;
 Font-weight:Bold;
+Font-size:15px;
 </string>
   </property>
   <widget class="QWidget" name="centralWidget">
@@ -114,10 +114,10 @@ background-color:#2c2c2c;
    <widget class="QLabel" name="label_6">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>520</x>
       <y>420</y>
-      <width>31</width>
-      <height>16</height>
+      <width>41</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -130,10 +130,10 @@ background-color:#2c2c2c;
    <widget class="QLabel" name="label_7">
     <property name="geometry">
      <rect>
-      <x>530</x>
+      <x>520</x>
       <y>280</y>
-      <width>31</width>
-      <height>16</height>
+      <width>41</width>
+      <height>20</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -228,7 +228,7 @@ background: qlineargradient(x1: 0, y1: 0.5, x2: 1, y2: 0.5, stop: 0 deepskyblue,
      <rect>
       <x>50</x>
       <y>20</y>
-      <width>91</width>
+      <width>241</width>
       <height>16</height>
      </rect>
     </property>
@@ -406,7 +406,7 @@ p, li { white-space: pre-wrap; }
      </rect>
     </property>
     <property name="text">
-     <string>◄</string>
+     <string>A</string>
     </property>
    </widget>
    <widget class="QPushButton" name="back">

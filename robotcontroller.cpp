@@ -67,7 +67,8 @@ void RobotController::stop(){
 /// --- Sensor ---
 
 void RobotController::getData(){
-    _myRobot->readyRead();
+    //_myRobot->readyRead();
+    _battery = _myRobot->getBat();
     _sensorFL = distanceConversion(_myRobot->getSensorFL());
     _sensorFR = distanceConversion(_myRobot->getSensorFR());
     _sensorBL = distanceConversion(_myRobot->getSensorBL());
@@ -76,7 +77,7 @@ void RobotController::getData(){
 
 
 QString RobotController::getCamStream(){
-    QString streamAddr = "http://192.168.1.11:8080/?action=stream";
+    QString streamAddr = "http://192.168.1.21:8080/?action=stream";
     return streamAddr;
 }
 
@@ -86,7 +87,7 @@ float RobotController::getSensorFR() {     return _sensorFR;    }
 float RobotController::getSensorBL() {     return _sensorBL;    }
 float RobotController::getSensorBR() {     return _sensorBR;    }
 
-float distanceConversion(int sensorVal){
+float RobotController::distanceConversion(int sensorVal){
     if(sensorVal > 215)
         return -15/100;
     if(sensorVal < 31)

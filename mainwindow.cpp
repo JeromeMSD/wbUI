@@ -193,12 +193,15 @@ void MainWindow::changeState(int state){
         case 0:
             ui->state->setText("Connected to wifiBot");
             ui->state->setStyleSheet("color:#00EE00;");
+            break;
         case 1:
             ui->state->setText("Disconnected");
             ui->state->setStyleSheet("color:#ccc;");
+            break;
         case 2:
             ui->state->setText("Error - WifiBot Error");
             ui->state->setStyleSheet("color:#EE0000;");
+            break;
         default:
             ui->state->setText("Error - State Error");
             ui->state->setStyleSheet("color:#EEEE00;");
@@ -222,33 +225,33 @@ void MainWindow::refreshUI(){
 
     // Front Left Sensor
     if(rbController->getSensorFL() < 0.0)
-        ui->flProx->setText("<"+QString::number(rbController->getSensorFL()) +" m");
+        ui->flProx->setText("< "+QString::number(rbController->getSensorFL()) +" m");
     else if(rbController->getSensorFL() >= 1.5)
-        ui->flProx->setText(">="+QString::number(rbController->getSensorFL()) +" m");
+        ui->flProx->setText(">= "+QString::number(rbController->getSensorFL()) +" m");
     else
         ui->flProx->setText(QString::number(rbController->getSensorFL()) +" m");
 
     // Front Right Sensor
     if(rbController->getSensorFR() < 0.0)
-        ui->frProx->setText("<"+QString::number(rbController->getSensorFR()) +" m");
+        ui->frProx->setText("< "+QString::number(rbController->getSensorFR()) +" m");
     else if(rbController->getSensorFR() < 1.5)
-        ui->frProx->setText(">="+QString::number(rbController->getSensorFR()) +" m");
+        ui->frProx->setText(">= "+QString::number(rbController->getSensorFR()) +" m");
     else
         ui->frProx->setText(QString::number(rbController->getSensorFR()) +" m");
 
     // Back Left Sensor
     if(rbController->getSensorBL() < 0.0)
-        ui->blProx->setText("<"+QString::number(rbController->getSensorBL()) +" m");
+        ui->blProx->setText("< "+QString::number(rbController->getSensorBL()) +" m");
     else if(rbController->getSensorBL() < 1.5)
-        ui->blProx->setText(">="+QString::number(rbController->getSensorBL()) +" m");
+        ui->blProx->setText(">= "+QString::number(rbController->getSensorBL()) +" m");
     else
         ui->blProx->setText(QString::number(rbController->getSensorBL()) +" m");
 
     // Back Right Sensor
     if(rbController->getSensorBR() < 0.0)
-        ui->brProx->setText("<"+QString::number(rbController->getSensorBR()) +" m");
+        ui->brProx->setText("< "+QString::number(rbController->getSensorBR()) +" m");
     else if(rbController->getSensorBR() < 1.5)
-        ui->brProx->setText(">="+QString::number(rbController->getSensorBR()) +" m");
+        ui->brProx->setText(">= "+QString::number(rbController->getSensorBR()) +" m");
     else
         ui->brProx->setText(QString::number(rbController->getSensorBR()) +" m");
 }

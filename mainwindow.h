@@ -38,16 +38,12 @@ private slots:
     void handleSlider();
 
     void on_front_pressed();
-    void on_frontRight_pressed();
-    void on_frontLeft_pressed();
     void on_left_pressed();
     void on_right_pressed();
     void on_back_pressed();
 
     void on_front_released();
     void on_right_released();
-    void on_frontLeft_released();
-    void on_frontRight_released();
     void on_left_released();
     void on_back_released();
 
